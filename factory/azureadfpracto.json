@@ -1,0 +1,9 @@
+{
+	"name": "azureadfpracto",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f1f0c977-d715-4eab-ade8-3bb51e882578",
+		"tenantId": "7fa0fadf-6413-4116-b92a-8a19d86e27c0"
+	}
+}
