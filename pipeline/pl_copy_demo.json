@@ -113,10 +113,12 @@
 				"defaultValue": "races.csv"
 			},
 			"v_output_containerName": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "demo"
 			},
 			"v_output_folderName": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "output"
 			},
 			"v_output_fileName": {
 				"type": "String"
