@@ -1,0 +1,129 @@
+{
+	"name": "pl_copy_demo",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_blob_blob_demo",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{variables('v_input_containerName')}/@{variables('v_input_folderName')}/@{variables('v_input_fileName')}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{variables('v_output_containerName')}/@{variables('v_output_folderName')}/@{variables('v_output_fileName')}"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"dataIntegrationUnits": 2,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_blob_demo",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_fileName": {
+								"value": "@variables('v_input_fileName')",
+								"type": "Expression"
+							},
+							"p_folderName": {
+								"value": "@variables('v_input_folderName')",
+								"type": "Expression"
+							},
+							"p_containerName": {
+								"value": "@variables('v_input_containerName')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_blob_demo",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_fileName": {
+								"value": "@variables('v_output_fileName')",
+								"type": "Expression"
+							},
+							"p_folderName": {
+								"value": "@variables('v_output_folderName')",
+								"type": "Expression"
+							},
+							"p_containerName": {
+								"value": "@variables('v_output_containerName')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"v_input_containerName": {
+				"type": "String",
+				"defaultValue": "demo"
+			},
+			"v_input_folderName": {
+				"type": "String",
+				"defaultValue": "input"
+			},
+			"v_input_fileName": {
+				"type": "String",
+				"defaultValue": "races.csv"
+			},
+			"v_output_containerName": {
+				"type": "String",
+				"defaultValue": "demo"
+			},
+			"v_output_folderName": {
+				"type": "String",
+				"defaultValue": "output"
+			},
+			"v_output_fileName": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

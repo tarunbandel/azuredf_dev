@@ -1,0 +1,43 @@
+{
+	"name": "ds_blob_demo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_demo",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_fileName": {
+				"type": "string"
+			},
+			"p_folderName": {
+				"type": "string"
+			},
+			"p_containerName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().p_fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().p_folderName",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().p_containerName",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
