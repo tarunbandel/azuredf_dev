@@ -39,7 +39,7 @@
 								"type": "Expression"
 							},
 							"p_containerName": {
-								"value": "@variables('v_config_containername')",
+								"value": "@variables('v_containername')",
 								"type": "Expression"
 							}
 						}
@@ -124,7 +124,7 @@
 											"type": "Expression"
 										},
 										"p_containerName": {
-											"value": "@variables('v_config_containername')",
+											"value": "@variables('v_containername')",
 											"type": "Expression"
 										}
 									}
@@ -144,7 +144,7 @@
 											"type": "Expression"
 										},
 										"p_containerName": {
-											"value": "@variables('v_config_containername')",
+											"value": "@variables('v_containername')",
 											"type": "Expression"
 										}
 									}
@@ -156,7 +156,7 @@
 			}
 		],
 		"variables": {
-			"v_config_containername": {
+			"v_containername": {
 				"type": "String",
 				"defaultValue": "demo"
 			},
