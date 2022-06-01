@@ -116,7 +116,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_fileName": {
-											"value": "@item()",
+											"value": "@item().Prop_0",
 											"type": "Expression"
 										},
 										"p_folderName": {
@@ -136,7 +136,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_fileName": {
-											"value": "@item()",
+											"value": "@item().Prop_0",
 											"type": "Expression"
 										},
 										"p_folderName": {
