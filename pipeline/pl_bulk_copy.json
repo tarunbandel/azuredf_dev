@@ -119,7 +119,10 @@
 											"value": "@item()",
 											"type": "Expression"
 										},
-										"p_folderName": "input",
+										"p_folderName": {
+											"value": "@variables('v_input_foldername')",
+											"type": "Expression"
+										},
 										"p_containerName": {
 											"value": "@variables('v_config_containername')",
 											"type": "Expression"
@@ -136,7 +139,10 @@
 											"value": "@item()",
 											"type": "Expression"
 										},
-										"p_folderName": "output",
+										"p_folderName": {
+											"value": "@variables('v_output_foldername')",
+											"type": "Expression"
+										},
 										"p_containerName": {
 											"value": "@variables('v_config_containername')",
 											"type": "Expression"
@@ -161,6 +167,14 @@
 			"v_config_filename": {
 				"type": "String",
 				"defaultValue": "config.csv"
+			},
+			"v_input_foldername": {
+				"type": "String",
+				"defaultValue": "input"
+			},
+			"v_output_foldername": {
+				"type": "String",
+				"defaultValue": "output"
 			}
 		},
 		"annotations": []
