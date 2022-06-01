@@ -1,0 +1,168 @@
+{
+	"name": "pl_bulk_copy",
+	"properties": {
+		"activities": [
+			{
+				"name": "lkup_config_file",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_blob_demo",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_fileName": {
+								"value": "@variables('v_config_filename')",
+								"type": "Expression"
+							},
+							"p_folderName": {
+								"value": "@variables('v_config_foldername')",
+								"type": "Expression"
+							},
+							"p_containerName": {
+								"value": "@variables('v_config_containername')",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEachFiles",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "lkup_config_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lkup_config_file').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "cp_bulk_files",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.00:05:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_blob_demo",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_fileName": {
+											"value": "@item()",
+											"type": "Expression"
+										},
+										"p_folderName": "input",
+										"p_containerName": {
+											"value": "@variables('v_config_containername')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_blob_demo",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_fileName": {
+											"value": "@item()",
+											"type": "Expression"
+										},
+										"p_folderName": "output",
+										"p_containerName": {
+											"value": "@variables('v_config_containername')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"v_config_containername": {
+				"type": "String",
+				"defaultValue": "demo"
+			},
+			"v_config_foldername": {
+				"type": "String",
+				"defaultValue": "config"
+			},
+			"v_config_filename": {
+				"type": "String",
+				"defaultValue": "config.csv"
+			}
+		},
+		"annotations": []
+	}
+}
