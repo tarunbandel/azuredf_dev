@@ -106,6 +106,74 @@
 									"value": "@equals(activity('Lkup_Sql_DB_Table').output.firstRow.filetype, 'csv')",
 									"type": "Expression"
 								},
+								"ifFalseActivities": [
+									{
+										"name": "cp_dynamic_mapping_json",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.00:05:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "JsonSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "JsonReadSettings"
+												}
+											},
+											"sink": {
+												"type": "AzureSqlSink",
+												"writeBehavior": "insert",
+												"sqlWriterUseTableLock": false
+											},
+											"enableStaging": false,
+											"translator": {
+												"value": "@json(activity('Lkup_Sql_DB_Table').output.firstRow.file_json)",
+												"type": "Expression"
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "ds_adls_gen2_json_file",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_container_name_json": "demo",
+													"p_folder_name_json": "input",
+													"p_file_name_json": {
+														"value": "@activity('Lkup_Sql_DB_Table').output.firstRow.filename",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "ds_azure_sql_tbl",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_schema_name": {
+														"value": "@activity('Lkup_Sql_DB_Table').output.firstRow.sinkTableSchema",
+														"type": "Expression"
+													},
+													"p_table_name": {
+														"value": "@activity('Lkup_Sql_DB_Table').output.firstRow.sinkTableName",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								],
 								"ifTrueActivities": [
 									{
 										"name": "cp_dynamic_mapping_csv",
