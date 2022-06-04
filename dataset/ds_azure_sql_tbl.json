@@ -1,0 +1,30 @@
+{
+	"name": "ds_azure_sql_tbl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_config_tbl_schema": {
+				"type": "string"
+			},
+			"p_config_tbl_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().p_config_tbl_schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().p_config_tbl_name",
+				"type": "Expression"
+			}
+		}
+	}
+}
