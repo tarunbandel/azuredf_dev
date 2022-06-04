@@ -15,16 +15,6 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": {
-				"value": "@dataset().p_config_tbl_schema",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().p_config_tbl_name",
-				"type": "Expression"
-			}
-		}
+		"schema": []
 	}
 }
