@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Pipeline1",
+				"name": "exec_pl_dynamic_mapping_bulk_copy",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
