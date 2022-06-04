@@ -19,8 +19,14 @@
 						"referenceName": "ds_adlsg2_folder",
 						"type": "DatasetReference",
 						"parameters": {
-							"p_container_name": "demo",
-							"p_folder_name": "input"
+							"p_container_name": {
+								"value": "@pipeline().parameters.p_container_name",
+								"type": "Expression"
+							},
+							"p_folder_name": {
+								"value": "@pipeline().parameters.p_folder_name",
+								"type": "Expression"
+							}
 						}
 					},
 					"fieldList": [
@@ -249,6 +255,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"p_container_name": {
+				"type": "string"
+			},
+			"p_folder_name": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
