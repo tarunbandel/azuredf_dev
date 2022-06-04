@@ -1,0 +1,41 @@
+{
+	"name": "pl_execute_dynamic_mapping",
+	"properties": {
+		"activities": [
+			{
+				"name": "exec_pl_dynamic_mapping_bulk_copy",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_dynamic_mapping_bulk_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"p_container_name": {
+							"value": "@variables('v_container_name')",
+							"type": "Expression"
+						},
+						"p_folder_name": {
+							"value": "@variables('v_folder_name')",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"variables": {
+			"v_container_name": {
+				"type": "String",
+				"defaultValue": "demo"
+			},
+			"v_folder_name": {
+				"type": "String",
+				"defaultValue": "input"
+			}
+		},
+		"annotations": []
+	}
+}

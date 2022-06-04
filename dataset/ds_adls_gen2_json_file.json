@@ -1,0 +1,40 @@
+{
+	"name": "ds_adls_gen2_json_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adlsg2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_container_name_json": {
+				"type": "string"
+			},
+			"p_folder_name_json": {
+				"type": "string"
+			},
+			"p_file_name_json": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_file_name_json",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().p_folder_name_json",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().p_container_name_json",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}

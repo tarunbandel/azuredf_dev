@@ -1,0 +1,106 @@
+{
+	"name": "pl_get_json",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['constructorId']"
+								},
+								"sink": {
+									"name": "constructor_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['constructorRef']"
+								},
+								"sink": {
+									"name": "constructor_ref",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['nationality']"
+								},
+								"sink": {
+									"name": "nationality",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['url']"
+								},
+								"sink": {
+									"name": "url",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_gen2_json_file",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_azure_sql_tbl",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_schema_name": "dbo",
+							"p_table_name": "tbl_constructors"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
