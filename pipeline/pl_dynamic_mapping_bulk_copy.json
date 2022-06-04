@@ -80,7 +80,11 @@
 								},
 								"dataset": {
 									"referenceName": "ds_azure_sql_tbl",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"p_schema_name": "dbo",
+										"p_table_name": "config"
+									}
 								}
 							}
 						}
