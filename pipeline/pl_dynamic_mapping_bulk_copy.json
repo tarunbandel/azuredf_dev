@@ -16,12 +16,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_blob_demo",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_folderName": "input",
-							"p_containerName": "demo"
-						}
+						"referenceName": "ds_blob_folder",
+						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"childItems"
