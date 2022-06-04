@@ -72,7 +72,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from config where filename = @{item().name}",
+										"value": "select * from config where filename = '@{item().name}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -82,7 +82,6 @@
 									"referenceName": "ds_azure_sql_tbl",
 									"type": "DatasetReference",
 									"parameters": {
-										"p_config_tbl_schema": "dbo",
 										"p_config_tbl_name": "config"
 									}
 								}
